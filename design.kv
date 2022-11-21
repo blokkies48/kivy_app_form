@@ -1,0 +1,29 @@
+<HomeScreen>
+    BoxLayout:
+        orientation: 'vertical'
+        MDTopAppBar:
+            MDBoxLayout:
+                size: root.width, root.height
+        MDScreen:
+            MDBottomNavigation:
+                Button:
+                    text: "Add Job"
+                    on_press: root.add_job_card()
+                Button:
+                    text: "Remove Job"
+                    on_press: root.remove_job_card()
+                MDBottomNavigationItem:
+                    id: job_cards
+                    name: 'Job Cards'
+                    text: 'Job Cards'
+                    icon: 'format-list-bulleted'
+
+            MDFloatingActionButton:
+                icon: "android"
+                elevation: 2
+                pos_hint: {'center_x': 0.9, 'center_y': 0.2}
+                text:'Back'
+                on_press: 
+                    root.fab_pressed()
+
+            
