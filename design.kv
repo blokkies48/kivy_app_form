@@ -2,21 +2,36 @@
     BoxLayout:
         orientation: 'vertical'
         MDTopAppBar:
+            title: 'App'
             MDBoxLayout:
                 size: root.width, root.height
+            
         MDScreen:
             MDBottomNavigation:
-                Button:
-                    text: "Add Job"
-                    on_press: root.add_job_card()
-                Button:
-                    text: "Remove Job"
-                    on_press: root.remove_job_card()
                 MDBottomNavigationItem:
                     id: job_cards
                     name: 'Job Cards'
                     text: 'Job Cards'
                     icon: 'format-list-bulleted'
+                    MDLabel:
+                        text: "Job Cards"
+                        font_size: 32
+                        halign: 'center'
+                    BoxLayout:
+                        orientation: 'vertical'
+                        MDRoundFlatButton:
+                            text: 'Add row'
+                            pos_hint: {"center_x": .5}
+                            on_press: root.add_row()
+                        MDRoundFlatButton:
+                            text: 'Remove row'
+                            pos_hint: {"center_x": .5}
+                            on_press: root.remove_row()
+                        MDRoundFlatButton:
+                            text: 'Print rows'
+                            pos_hint: {"center_x": .5}
+                            on_press: root.print_rows()
+                    
 
             MDFloatingActionButton:
                 icon: "android"
@@ -24,6 +39,62 @@
                 pos_hint: {'center_x': 0.9, 'center_y': 0.2}
                 text:'Back'
                 on_press: 
-                    root.fab_pressed()
+                    root.fab_pressed(job_cards)
+                    root.manager.transition.direction = 'left'
 
-            
+<LoginScreen>
+    Screen:
+        MDCard:
+            radius: [20]
+            size_hint: None,None
+            size: 300,400
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            padding: 15
+            spacing: 15
+            orientation: 'vertical'
+            MDLabel:
+                text: "LOGIN"
+                halign: "center"
+                font_size: 32
+                pos_hint: {'center_x': 0.5, 'center_y': 0.8}   
+            MDTextField:
+                id: user_name
+                hint_text: "User Name"
+                icon_left: "account"
+
+            MDScreen:
+
+                MDTextField:
+                    id: user_password
+                    hint_text: 'Password'
+                    password: True
+                    icon_left: "key-variant"
+
+                MDIconButton:
+                    icon: "eye-off"
+                    pos_hint: {'center_x': 0.9, 'center_y': 0.5}
+                    on_release:
+                        self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+                        user_password.password = False if user_password.password is True else True
+                    
+            MDRoundFlatButton:
+                text: "Login"
+                pos_hint: {"center_x": .5}
+                on_press: 
+                    root.manager.current = 'HomeScreen'
+                    root.manager.transition.direction = 'left'
+            MDRoundFlatButton:
+                text: "Register"
+                pos_hint: {"center_x": .5}
+
+<JobCardScreen>
+    BoxLayout:
+        orientation: 'vertical'
+        MDTopAppBar:
+            MDBoxLayout:
+                size: root.width, root.height
+            MDIconButton:
+                icon: "arrow-left"
+                on_press: root.back()
+
+        MDScreen:

@@ -1,27 +1,24 @@
 from kivy.uix.screenmanager import Screen
-from database.database import DataBase
 
-from database.database_jobcards import JobCard, RemoveJobCard
+from database.database_jobcards import JobCard, get_job_card, remove_job_card
+from database.database import DataBase
 
 class HomeScreen(Screen):
     def test(self):
         print("Home Screen")
 
-    def fab_pressed(self):
-        db = DataBase().connect_to_database()
-        cursor = db.cursor(buffered=True)
-        # cursor.execute("SELECT * FROM job_card_table")
-        cursor.execute("SELECT * FROM job_card_table")
+    def fab_pressed(self, item):
+        self.manager.current = 'JobCardScreen'
 
-        result = cursor.fetchall()
-        print()
-        for i in result:
-            
-            print(i)
-
-    def add_job_card(self):
+    def add_row(self):
+        print("Row added")
         new_job_card = JobCard(Title="Job Card 1", Description="Cleaned the toilets", Author="Jonathan")
         new_job_card.add_to_db()
 
-    def remove_job_card(self):
-        RemoveJobCard().remove_job_card()
+    def remove_row(self):
+        print("Row removed")
+        remove_job_card()
+
+    def print_rows(self):
+        DataBase().connect_to_database()
+        sql_query = "SELECT * FROM "
