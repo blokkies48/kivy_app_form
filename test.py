@@ -1,3 +1,10 @@
-from random import randint
+from database.database_user import test
 
-print(randint(1000000000,9999999999))
+test()
+
+import time
+
+
+time.sleep(2)
+
+print("later")

@@ -4,6 +4,7 @@ from kivy.uix.screenmanager import ScreenManager
 from screens.screen_home import HomeScreen
 from screens.screen_login import LoginScreen
 from screens.screen_jobcard import JobCardScreen
+from screens.screen_register import RegisterScreen
 
 THEME_ = "Dark"
 
@@ -17,13 +18,10 @@ class MainApp(MDApp):
         Builder.load_file("design.kv")
         screen_manager = ScreenManager()
         screen_manager.add_widget(LoginScreen(name = "LoginScreen"))
+        screen_manager.add_widget(RegisterScreen(name = "RegisterScreen"))
         screen_manager.add_widget(HomeScreen(name = "HomeScreen"))
         screen_manager.add_widget(JobCardScreen(name = "JobCardScreen"))
         return screen_manager
-
-
-    
-    
 
     
 if __name__ == "__main__":
