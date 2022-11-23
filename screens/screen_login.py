@@ -6,6 +6,14 @@ from kivy.uix.screenmanager import NoTransition, SlideTransition
 
 
 class LoginScreen(Screen):
+    # TODO:
+    def encrypt_password(self, password: str):
+        return password
+        
+    # TODO:
+    def decrypt_password(self, password: str):
+        return password
+
     user_ids = []
     target = 0
     def login(self, user_name,user_password):
@@ -14,7 +22,7 @@ class LoginScreen(Screen):
             if user[1] == user_name.text.lower().capitalize() and user[2] == user_password.text:
                 # Save user login
                 with open("user//user.txt", "w+") as f:
-                    f.write(f"User: {user[1]}\nid: {user[0]}")
+                    f.write(f"User: {user[1]}\nid: {user[0]}\npassword: {self.encrypt_password(user[2])}")
                 # Clear inputs
                 self.ids.login_error.text = ''
                 user_name.text = ''
@@ -41,19 +49,34 @@ class LoginScreen(Screen):
     def check_login(self):
         Clock.schedule_once(self.pre_login, 0.1)
     def pre_login(self, *args):
-        self.user_ids = [int(user[0]) for user in all_users()]
-        with open("user//user.txt", "r") as f:
-            for line in f: # Loop because max 2 lines and small scalable
-                if "id" in line:
-                    # Sets the target for the search
-                    self.target = int(line.split()[-1])
-                    user_index = self.binary_search()
-                    # Getting the name and password 
-                    self.manager.transition = NoTransition()
-                    self.manager.current = 'HomeScreen'
-                    self.manager.transition = SlideTransition()
-                    print(all_users()[user_index][1],all_users()[user_index][2])
-                    break
+        try:
+            with open("user//user.txt", "r") as f:
+                for index, line in enumerate(f):
+                    if index == 0:
+                        user = single_user(line.split()[-1])
+                    if index == 1:
+                        id = line.split()[-1]
+                    if index == 2:
+                        password = self.decrypt_password(line.split()[-1]) 
+                    
+            user_id = user[0]
+            user_name = user[1]
+            user_password = self.decrypt_password(user[2])
+
+            if ((user[1]) == (user_name)) and ((user_password) == (password)) and ((id) == str(user_id)):
+                self.manager.transition = NoTransition()
+                self.manager.current = 'HomeScreen'
+                self.manager.transition = SlideTransition()
+            else:
+                raise Exception()
+        except:
+            with open("user//user.txt", "w") as f:
+                f.write('')
+
+            
+            
+            
+            
     # Uses binary search to find user
     def binary_search(self): 
         left = 0 
