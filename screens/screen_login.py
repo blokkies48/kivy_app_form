@@ -1,5 +1,5 @@
 from kivy.uix.screenmanager import Screen
-from database.database_user import all_users
+from database.database_user import all_users, single_user
 from kivy.clock import Clock
 
 from kivy.uix.screenmanager import NoTransition, SlideTransition
@@ -10,28 +10,26 @@ class LoginScreen(Screen):
     target = 0
     def login(self, user_name,user_password):
         try:
-            for user in all_users():
-                if user[1] == user_name.text.lower().capitalize() and user[2] == user_password.text:
-                    # Change screen
-                    self.manager.current = 'HomeScreen'
-                    self.manager.transition.direction = 'left'
-                    # Set user name and id
-                    # use a text document for simplicity
-                    with open("user//user.txt", "w+") as f:
-                        f.write(f"User: {user[1]}\nid: {user[0]}")
-                    # Clean out text inputs
-                    self.ids.login_error.text = ''
-                    user_name.text = ''
-                    user_password.text = ''
-                    break
-            else:
-                self.ids.login_error.text = "Invalid username or password"
+            user = single_user(user_name.text)
+            if user[1] == user_name.text.lower().capitalize() and user[2] == user_password.text:
+                # Save user login
+                with open("user//user.txt", "w+") as f:
+                    f.write(f"User: {user[1]}\nid: {user[0]}")
+                # Clear inputs
+                self.ids.login_error.text = ''
                 user_name.text = ''
-                # Time error message to go away
-                Clock.schedule_once(self.update_label, 2)
-        except Exception as e:
+                user_password.text = ''
+                # Change screen
+                self.manager.current = 'HomeScreen'
+                self.manager.transition.direction = 'left'
+            else:
+                raise Exception()
+        except Exception as e: 
             print(e)
-            self.ids.login_error.text = "Error occurred contact admin"
+            self.ids.login_error.text = "Invalid username or password"
+            user_password.text = ''
+            # Time error message to go away
+            Clock.schedule_once(self.update_label, 2)
 
         print(all_users())
 
@@ -51,8 +49,6 @@ class LoginScreen(Screen):
                     self.target = int(line.split()[-1])
                     user_index = self.binary_search()
                     # Getting the name and password 
-                    self.ids.user_name.text = all_users()[user_index][1]
-                    self.ids.user_password.text = all_users()[user_index][2]
                     self.manager.transition = NoTransition()
                     self.manager.current = 'HomeScreen'
                     self.manager.transition = SlideTransition()
@@ -72,3 +68,6 @@ class LoginScreen(Screen):
             else:
                 right = mid - 1 
         return - 1
+
+
+    # Get logged in user setting from json file

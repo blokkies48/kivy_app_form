@@ -32,3 +32,5 @@ class RegisterScreen(Screen):
 
     def update_label(self, *args):
         self.ids.login_error.text = ''
+
+    # TODO: Add default settings when new user is created in json

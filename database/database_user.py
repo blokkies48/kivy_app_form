@@ -15,15 +15,6 @@ class UserTable:
         CURSOR.execute(sql_command)
         DB.commit()
 
-class User:
-    def login(self):
-        pass
-
-    def logout(self):
-        pass
-
-
-
 class AddUser:
 
     def __init__(self, username, password):
@@ -38,13 +29,10 @@ class AddUser:
         CURSOR.execute(sql_command, content)
         DB.commit()
 
-def test():
-    #AddUser("Blokkies", "12345").register_user()
-    #AddUser("Rapsie", "asdfg").register_user()
-    CURSOR.execute("SELECT * FROM users")
-    for users in CURSOR.fetchall():
-        print(users)
-
 def all_users():
     CURSOR.execute("SELECT * FROM users")
     return [users for users in CURSOR.fetchall()]
+
+def single_user(username1):
+    CURSOR.execute(f"SELECT * FROM users WHERE username = '{username1}'" )
+    return CURSOR.fetchone()

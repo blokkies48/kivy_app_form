@@ -1,10 +1,3 @@
-from database.database_user import test
+from database.database_user import all_users, single_user
 
-test()
-
-import time
-
-
-time.sleep(2)
-
-print("later")
+print(single_user("Admin"))
