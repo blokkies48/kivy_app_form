@@ -10,7 +10,7 @@ class RegisterScreen(Screen):
                 if password.text == password_2.text:
                     AddUser(
                         name.text.lower().capitalize(),
-                        password.text).register_user()
+                        password.text).register_user() # add encrypt_password method when ready
                     name.text = ''
                     password.text = ''
                     password_2.text = ''

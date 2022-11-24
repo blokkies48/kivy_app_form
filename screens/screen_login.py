@@ -6,13 +6,13 @@ from kivy.uix.screenmanager import NoTransition, SlideTransition
 
 
 class LoginScreen(Screen):
-    # TODO:
+    # TODO: figure out encryption method with key
     def encrypt_password(self, password: str):
-        return password
+        return str(password) + "1"
         
     # TODO:
     def decrypt_password(self, password: str):
-        return password
+        return str(password).rstrip("1")
 
     user_ids = []
     target = 0
@@ -71,12 +71,9 @@ class LoginScreen(Screen):
                 raise Exception()
         except:
             with open("user//user.txt", "w") as f:
-                f.write('')
+                f.write('')  
 
-            
-            
-            
-            
+    # REMOVE     
     # Uses binary search to find user
     def binary_search(self): 
         left = 0 

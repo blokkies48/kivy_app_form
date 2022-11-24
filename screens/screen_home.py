@@ -1,14 +1,22 @@
 from kivy.uix.screenmanager import Screen
-from database.database_user import all_users
-from screens.screen_login import LoginScreen
+from kivymd.uix.list import OneLineListItem
 
-from database.database_jobcards import JobCard, get_job_card, remove_job_card
+
+from database.database_jobcards import JobCard,CreateJobCards, get_all_job_card, remove_job_card, get_c_user_job_card
 
 class HomeScreen(Screen):
-    # functions for testing purposes
-    def test(self):
-        print("Home Screen")
+    # Add more tabs here
+    # Tabs variables
+    active_tab = "Job Cards"
 
+    # App variables
+    current_user = ""
+
+    def __init__(self, **kw):
+        super().__init__(**kw)
+        CreateJobCards().job_card_table()
+    # functions for testing purposes
+    
     def add_row(self):
         print("Row added")
         new_job_card = JobCard(Title="Job Card 1", Description="Cleaned the toilets", Author="Jonathan")
@@ -19,19 +27,15 @@ class HomeScreen(Screen):
         remove_job_card()
 
     def print_rows(self):
-        get_job_card()
+        get_all_job_card()
 ##################################################
-    # Add more tabs here
-    # Tabs variables
-    active_tab = "Job Cards"
-
-    # App variables
-    current_user = ''
+    
 
     def fab_pressed(self):
         if self.active_tab == "Job Cards":
             self.manager.current = 'JobCardScreen'
 
+            
     def current_tab(self, tab):
         self.active_tab = tab.name
 
@@ -39,6 +43,7 @@ class HomeScreen(Screen):
         with open("user//user.txt", "r") as f:
             for line in f:
                 if "User" in line:
+                    self.current_user = line.split()[-1]
                     hello_bar.title = f"Hi, {line.split()[-1]}"
 
     def logout(self):
@@ -47,6 +52,21 @@ class HomeScreen(Screen):
         self.manager.current = 'LoginScreen'
         self.manager.transition.direction = 'right'
 
+
+    def load_content(self):
+        try:
+            print(get_c_user_job_card(self.current_user)) # list of job cards
+            for name in get_c_user_job_card(self.current_user):
+                widget = OneLineListItem(
+                    text=f"Title: {name[1]} Description: {name[3][:15]}...", 
+                )
+                # widget.bind(on_release=self.item)
+                self.ids.home_dis.add_widget(widget)
+        except:
+            print("error")
+
+    def remove_content(self):
+        self.ids.home_dis.clear_widgets()
 
 
     

@@ -1,19 +1,38 @@
 from kivy.uix.screenmanager import Screen
-from database.database_jobcards import JobCard, get_job_card, remove_job_card
+from database.database_jobcards import JobCard
+from kivy.clock import Clock
+
 
 class JobCardScreen(Screen):
     def test(self):
         print("Login screen")
 
 
-    def add_job_card(self):
-        new_job_card = JobCard(Title="Job Card 1", Description="Cleaned the toilets", Author="Jonathan")
-        new_job_card.add_to_db()
-
-    def remove_job_card(self):
-        remove_job_card()
-
+    def add_job_card(self, title, description):
+        with open("user//user.txt", "r") as f:
+            for index, line in enumerate(f):
+                    if index == 0:
+                        user = (line.split()[-1])
+        if title.text != '' and description.text != '':               
+            new_job_card = JobCard(Title=title.text, Description=description.text, Author=user)
+            new_job_card.add_to_db()
+            title.text = ''
+            description.text = ''
+            
+            self.manager.current = 'HomeScreen'
+            self.manager.transition.direction = 'right'
+        else:
+            title.required = True
+            description.required = True
+            self.ids.error.text = "No empty fields allowed"
+            Clock.schedule_once(self.remove_error, 3)
+        
+    def remove_error(self, *args):
+        print(args)
+        self.ids.error.text = ""
 
     def back(self):
+        self.ids.title.text = ''
+        self.ids.description.text = ''
         self.manager.current = 'HomeScreen'
         self.manager.transition.direction = 'right'
