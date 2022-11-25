@@ -32,11 +32,6 @@
                         ScrollView:
                             MDList:
                                 id: home_dis
-
-                        MDRectangleFlatButton:
-                            text: 'test'
-                            on_press: root.remove_content()                    
-
             MDFloatingActionButton:
                 icon: "android"
                 elevation: 2
@@ -103,6 +98,8 @@
                     root.manager.transition.direction = 'right'
 
 <JobCardScreen>
+    on_enter: 
+        root.display_date(display_date)
     BoxLayout:
         orientation: 'vertical'
         MDTopAppBar:
@@ -120,7 +117,14 @@
                 Label:
                     text: "New Job Card"
                     font_size: 22
+
+                MDLabel:
+                    id: display_date
+                    font_size: 16
+                    size_hint: 1, 0.2
+                    color: 'grey'
                     
+
                 MDTextField:
                     id: title
                     hint_text: "Title"

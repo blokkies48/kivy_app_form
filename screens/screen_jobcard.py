@@ -1,6 +1,7 @@
 from kivy.uix.screenmanager import Screen
 from database.database_jobcards import JobCard
 from kivy.clock import Clock
+from datetime import date, datetime
 
 
 class JobCardScreen(Screen):
@@ -26,6 +27,10 @@ class JobCardScreen(Screen):
             description.required = True
             self.ids.error.text = "No empty fields allowed"
             Clock.schedule_once(self.remove_error, 3)
+
+    def display_date(self, _date):
+        current_time = datetime.now().strftime("%H:%M:%S")
+        _date.text = "Date: " + str(date.today()) + " Time: " + str(current_time)
         
     def remove_error(self, *args):
         print(args)
