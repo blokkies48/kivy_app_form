@@ -39,6 +39,7 @@ class LoginScreen(Screen):
             # Time error message to go away
             Clock.schedule_once(self.update_label, 2)
 
+        # REMOVE
         print(all_users())
 
 
@@ -72,6 +73,9 @@ class LoginScreen(Screen):
         except:
             with open("user//user.txt", "w") as f:
                 f.write('')  
+
+    def unable_to_connect(self):
+        self.manager.current = 'ErrorScreen'
 
     # REMOVE     
     # Uses binary search to find user

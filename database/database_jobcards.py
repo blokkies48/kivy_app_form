@@ -1,9 +1,6 @@
-from .database import DataBase
-from random import randint
+from .database import  DB, CURSOR
 from datetime import datetime
 
-DB = DataBase().connect_to_database()
-CURSOR = DB.cursor(buffered=True)
 
 class CreateJobCards():
     def job_card_table(self):
@@ -35,13 +32,13 @@ class JobCard():
         CURSOR.execute(sql_command, content)
         DB.commit()
 
-
+# Edit later
 def remove_job_card():
     sql_command = "DELETE FROM job_card_table LIMIT 1 "
     CURSOR.execute(sql_command)
     DB.commit()
 
-
+# prints all cards for testing
 def get_all_job_card():
     sql_command = "SELECT * FROM job_card_table"
     CURSOR.execute(sql_command)
@@ -49,7 +46,7 @@ def get_all_job_card():
     for row in result:
         print(row,"\n")
 
-# Returns list of current logged in user
+# Returns list of current logged in user's job cards
 def get_c_user_job_card(username):
     job_cards_list = []
     sql_command = f"SELECT * FROM job_card_table WHERE author = '{username}'"

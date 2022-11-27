@@ -1,7 +1,4 @@
-from .database import DataBase
-
-DB = DataBase().connect_to_database()
-CURSOR = DB.cursor(buffered=True)
+from .database import  DB, CURSOR
 
 class UserTable:
     def create_user_table(self):

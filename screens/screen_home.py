@@ -30,10 +30,14 @@ class HomeScreen(Screen):
         get_all_job_card()
 ##################################################
     
-
+    # Add more tabs here
     def fab_pressed(self):
         if self.active_tab == "Job Cards":
             self.manager.current = 'JobCardScreen'
+            
+        if self.active_tab == "Test Cards":
+            print("You are on the test tab")
+            print(self.active_tab)
 
             
     def current_tab(self, tab):

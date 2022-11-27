@@ -32,6 +32,23 @@
                         ScrollView:
                             MDList:
                                 id: home_dis
+                MDBottomNavigationItem:
+                    id: test
+                    name: 'Test Cards'
+                    text: 'Test Cards'
+                    icon: 'format-list-bulleted'
+                    on_tab_press:root.current_tab(self)
+                    BoxLayout:
+                        orientation: 'vertical'
+                        MDLabel:
+                            text: "Test Cards"
+                            font_size: 32
+                            halign: 'center'
+                            size_hint: 1, 0.3   
+                        ScrollView:
+                            MDList:
+                                id: test_dis
+                                
             MDFloatingActionButton:
                 icon: "android"
                 elevation: 2
@@ -225,3 +242,25 @@
                     reg_user_password_2.text = ''
                     root.manager.current = 'LoginScreen'
                     root.manager.transition.direction = 'left'
+
+
+<ErrorScreen>
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 25
+        MDLabel:
+            text: "Database Error Please Reload App"
+            halign: 'center'
+            font_size: 32
+            color: 'red'
+            size_hint: 1, 0.2
+        MDLabel:
+            id: error_type
+            halign: 'center'
+            size_hint: 1, 0.2
+        MDRaisedButton:
+            text: 'Reload App'
+            text_color: 'black'
+            pos_hint: {'center_x': 0.5,'center_y': 0.4}
+            on_press:
+                root.reload()
