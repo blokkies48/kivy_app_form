@@ -42,4 +42,6 @@ class RegisterScreen(Screen):
     def update_label(self, *args):
         self.ids.login_error.text = ''
 
+
+    # Add no user name duplication
     # TODO: Add default settings when new user is created in json

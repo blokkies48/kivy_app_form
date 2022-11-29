@@ -81,6 +81,7 @@ class HomeScreen(Screen):
 
     def remove_content(self):
         self.ids.home_dis.clear_widgets()
+        self.user_card = []
 
 
     

@@ -33,7 +33,6 @@ class JobCardScreen(Screen):
         _date.text = "Date: " + str(date.today()) + " Time: " + str(current_time)
         
     def remove_error(self, *args):
-        print(args)
         self.ids.error.text = ""
 
     def back(self):

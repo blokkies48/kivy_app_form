@@ -42,7 +42,6 @@ class MainApp(MDApp):
 
 
 if __name__ == "__main__":
-    try:
-        MainApp().run()
-    except Exception as e:
-        print("Main ",e)
+
+    MainApp().run()
+    
