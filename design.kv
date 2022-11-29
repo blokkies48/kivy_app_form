@@ -161,17 +161,52 @@
                     padding: 20
                     MDRectangleFlatButton:
                         text: 'Cancle'
-                        size_hint: 1, 0.4
+                        size_hint: 1, None
+                        height: dp(2)
                         on_press: root.back()
 
                     MDRectangleFlatButton:
                         text: 'Save'
-                        size_hint: 1, 0.4
+                        size_hint: 1, None
+                        height: dp(2)
                         on_press: root.add_job_card(title, description)
+
+<LoadJobCard>
+    on_enter:
+        root.load_card()
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        BoxLayout:
+            id: boxlayout
+            
+            orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: 20
+            size_hint: 1, None
+            height: dp(3)
+            MDRectangleFlatButton:
+                text: 'Cancle'
+                size_hint: 1, None
+                height: dp(2)
+                on_press:
+                    root.cancel()
+            MDRectangleFlatButton:
+                text: 'Edit'
+                size_hint: 1, None
+                height: dp(2)
+                on_press:
+                    root.cancel()
+            MDRectangleFlatButton:
+                text: 'Delete'
+                size_hint: 1, None
+                height: dp(2)
+                on_press:
+                    root.cancel()
                         
 
 <RegisterScreen>
-
     Screen:
         MDCard:
             radius: [20]

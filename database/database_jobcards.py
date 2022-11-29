@@ -56,5 +56,15 @@ def get_c_user_job_card(username):
         job_cards_list.append(row)
     return job_cards_list
 
+def get_c_user_job_card_id(id):
+    job_cards_list = []
+    sql_command = f"SELECT * FROM job_card_table WHERE author = '{id}'"
+    CURSOR.execute(sql_command)
+    result = CURSOR.fetchall()
+    for row in result:
+        job_cards_list.append(row)
+    return job_cards_list
+
+
 
     

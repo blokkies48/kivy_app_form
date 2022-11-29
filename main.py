@@ -8,6 +8,7 @@ try:
     from screens.screen_home import HomeScreen
     from screens.screen_register import RegisterScreen
     from screens.screen_jobcard import JobCardScreen
+    from screens.screen_show_jobcard import LoadJobCard
 except Exception as e:
     from screens.screen_error_screen import ErrorScreen
     error_occurred = True
@@ -30,6 +31,8 @@ class MainApp(MDApp):
             screen_manager.add_widget(RegisterScreen(name = "RegisterScreen"))
             screen_manager.add_widget(HomeScreen(name = "HomeScreen"))
             screen_manager.add_widget(JobCardScreen(name = "JobCardScreen"))
+            screen_manager.add_widget(LoadJobCard(name = "LoadJobCard"))
+
         else:
             screen_manager.add_widget(ErrorScreen(
                 name = "ErrorScreen", 

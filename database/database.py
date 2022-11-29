@@ -1,6 +1,6 @@
 import mysql.connector
 
-PASSWORD = ''
+PASSWORD = 'Jlloyd15'
 
 class DataBase():
     def __init__(self):
