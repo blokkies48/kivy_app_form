@@ -1,8 +1,7 @@
 from kivy.uix.screenmanager import Screen
 from kivymd.uix.list import TwoLineListItem
 
-from .screen_show_jobcard import LoadJobCard
-from database.database_jobcards import JobCard,CreateJobCards, get_all_job_card, remove_job_card, get_c_user_job_card
+from database.database_jobcards import CreateJobCards, get_c_user_job_card
 
 class HomeScreen(Screen):
     # Add more tabs here
@@ -57,9 +56,8 @@ class HomeScreen(Screen):
                     on_release=self.open_form
                 )
                 self.ids.home_dis.add_widget(widget)
-
                 self.user_card.append((index + 1,name))
-                
+            
         except:
             print("error")
 
@@ -70,18 +68,21 @@ class HomeScreen(Screen):
         
         with open("user//current_form.txt", "w") as f:
             for i in self.user_card:
+                
                 if (int(data.text.split(": ")[0]) == int(i[0]) 
                     and data.text.split(": ")[1] == i[1][1]):
+                    self.index_of_current_item = int(i[0]) - 1
                     for details in i[1]:
                         f.write(f"{details}\n")
-            self.user_card =[]
-                
+            self.user_card = []
 
-      
 
     def remove_content(self):
         self.ids.home_dis.clear_widgets()
         self.user_card = []
+        
+        
+        
 
 
     
