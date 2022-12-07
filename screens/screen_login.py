@@ -55,9 +55,9 @@ class LoginScreen(Screen):
                 for index, line in enumerate(f):
                     if index == 0:
                         user = single_user(line.split()[-1])
-                    if index == 1:
+                    elif index == 1:
                         id = line.split()[-1]
-                    if index == 2:
+                    elif index == 2:
                         password = self.decrypt_password(line.split()[-1]) 
                     
             user_id = user[0]

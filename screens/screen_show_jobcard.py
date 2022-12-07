@@ -1,5 +1,5 @@
 
-# Add option to delete or to edit
+# Add option to edit
 from kivy.uix.screenmanager import Screen
 from kivymd.uix.label import MDLabel
 from database.database_jobcards import remove_job_card
@@ -25,7 +25,7 @@ class LoadJobCard(Screen):
         self.manager.transition.direction = 'right'
 
     def delete(self):
-        id = -1
+        id = None
         title = ""
 
         with open("user//current_form.txt", "r") as f:
@@ -36,9 +36,11 @@ class LoadJobCard(Screen):
                 elif index == 1:
                     title = line.strip("\n")
                 
-        if id != -1:
+        if id != None:
             remove_job_card(id=id, job_card_title=title)
             self.cancel()
         else:
             print("Unable to delete")
             self.cancel()
+
+    
