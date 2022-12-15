@@ -66,7 +66,7 @@ class HomeScreen(Screen):
         self.manager.current = 'LoadJobCard'
         self.manager.transition.direction = 'left'
         
-        with open("user//current_form.txt", "w") as f:
+        with open("user//current_form.csv", "w") as f:
             for i in self.user_card:
                 
                 if (int(data.text.split(": ")[0]) == int(i[0]) 

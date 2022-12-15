@@ -8,7 +8,7 @@ class LoadJobCard(Screen):
  
     def load_card(self):
         labels = ["Title", "Date and Time", "Description", "Author"]
-        with open("user//current_form.txt", "r") as f:
+        with open("user//current_form.csv", "r") as f:
             next(f)
             for index, line in enumerate(f):
                 widget = MDLabel(
@@ -18,7 +18,7 @@ class LoadJobCard(Screen):
                 self.ids.boxlayout.add_widget(widget)
 
     def cancel(self):
-        with open("user//current_form.txt", "w") as f:
+        with open("user//current_form.csv", "w") as f:
             f.write('')
         self.ids.boxlayout.clear_widgets()
         self.manager.current = 'HomeScreen'
@@ -28,7 +28,7 @@ class LoadJobCard(Screen):
         id = None
         title = ""
 
-        with open("user//current_form.txt", "r") as f:
+        with open("user//current_form.csv", "r") as f:
             for index, line in enumerate(f):
                 print(index)
                 if index == 0:

@@ -27,7 +27,7 @@ class RegisterScreen(Screen):
                     self.manager.transition.direction = 'left'
                 else:
                     error.text = "Passwords do not match"
-                    password.text = ''
+                    password_2.text = ''
                     Clock.schedule_once(self.update_label, 2)
             else: 
                 error.text = "Can't have empty fields" 
